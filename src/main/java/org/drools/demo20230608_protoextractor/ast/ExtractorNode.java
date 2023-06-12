@@ -25,8 +25,16 @@ public class ExtractorNode extends AbstractNode {
         return values.stream().map(TextValue::getValue).collect(Collectors.toList());
     }
 
-    public Object extractFrom(Map<String, Object> value) {
-        throw new UnsupportedOperationException("TODO");
+    public Object extractFrom(Map<?, ?> value) {
+        Object result = value;
+        for (String part : getParts()) {
+            if (result instanceof Map) {
+                result = ((Map<?, ?>) result).get(part);
+            } else {
+                result = null;
+            }
+        }
+        return result;
     }
 
     @Override

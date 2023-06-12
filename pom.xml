@@ -13,6 +13,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>11</maven.compiler.release><!-- eventually considering integration in drools-ansible-... or drools, hence 11. -->
     <version.org.antlr4>4.10.1</version.org.antlr4>
+    <version.com.fasterxml.jackson>2.15.2</version.com.fasterxml.jackson>
   </properties>
 
   <dependencies>
@@ -20,6 +21,11 @@
       <groupId>org.antlr</groupId>
       <artifactId>antlr4-runtime</artifactId> 
       <version>${version.org.antlr4}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${version.com.fasterxml.jackson}</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
