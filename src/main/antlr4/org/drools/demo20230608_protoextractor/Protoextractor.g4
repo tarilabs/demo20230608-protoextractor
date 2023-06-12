@@ -1,6 +1,8 @@
 grammar Protoextractor;
 
-extractor : identifier ( ('.' identifier) | squaredAccessor )* ;
+extractor : identifier ( chunk )* ;
+
+chunk : ('.' identifier) | squaredAccessor ;
 
 squaredAccessor : '[' stringLiteral ']';
 
