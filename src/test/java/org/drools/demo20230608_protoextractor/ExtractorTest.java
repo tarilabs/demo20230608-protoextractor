@@ -1,4 +1,4 @@
-package org.drools;
+package org.drools.demo20230608_protoextractor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
-import org.drools.demo20230608_protoextractor.ExtractorParser;
 import org.drools.demo20230608_protoextractor.ast.ExtractorNode;
 import org.junit.jupiter.api.Test;
 

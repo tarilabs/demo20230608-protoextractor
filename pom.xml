@@ -14,9 +14,20 @@
     <maven.compiler.release>11</maven.compiler.release><!-- eventually considering integration in drools-ansible-... or drools, hence 11. -->
     <version.org.antlr4>4.10.1</version.org.antlr4>
     <version.com.fasterxml.jackson>2.15.2</version.com.fasterxml.jackson>
+    <version.drools>8.39.0.Final</version.drools>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.drools</groupId>
+      <artifactId>drools-canonical-model</artifactId> 
+      <version>${version.drools}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.drools</groupId>
+      <artifactId>drools-core</artifactId> 
+      <version>${version.drools}</version>
+    </dependency>
     <dependency>
       <groupId>org.antlr</groupId>
       <artifactId>antlr4-runtime</artifactId> 
@@ -26,6 +37,12 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${version.com.fasterxml.jackson}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.drools</groupId>
+      <artifactId>drools-model-compiler</artifactId> 
+      <version>${version.drools}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
