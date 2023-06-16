@@ -99,9 +99,4 @@ public abstract class AbstractNode implements ASTNode {
     public String toString() {
         return getClass().getSimpleName()+"{" + text + "}";
     }
-
-    @Override
-    public <T> T accept(Visitor<T> v) {
-        return v.visit(this);
-    }
 }

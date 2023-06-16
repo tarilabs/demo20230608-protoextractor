@@ -4,23 +4,22 @@ import java.util.Objects;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 
-public class ChunkNode extends AbstractNode implements TextValue {
+public class SquaredAccessorNode extends AbstractNode {
     private final TextValue value;
 
-    public ChunkNode(ParserRuleContext ctx, TextValue value) {
+    public SquaredAccessorNode(ParserRuleContext ctx, TextValue value) {
         super(ctx);
         Objects.requireNonNull(value);
         this.value = value;
     }
 
-    @Override
     public String getValue() {
         return this.value.getValue();
     }
 
     @Override
     public String toString() {
-        return "ChunkNode [value=" + value + "]";
+        return "SquaredAccessorNode [value=" + value + "]";
     }
 
     @Override

@@ -7,6 +7,9 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.drools.demo20230608_protoextractor.ast.ExtractorNode;
 
 public class ExtractorParser {
+    private ExtractorParser() {
+        // only static methods.
+    }
     
     public static ExtractorNode parse(String expression) {
         CodePointCharStream charStream = CharStreams.fromString(expression);

@@ -2,24 +2,23 @@ package org.drools.demo20230608_protoextractor.ast;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 
-public class StringLiteralNode extends AbstractNode implements TextValue {
+public class IntegerLiteralNode extends AbstractNode {
 
-    private final String value;
+    private final Integer value;
 
-    public StringLiteralNode(ParserRuleContext ctx) {
+    public IntegerLiteralNode(ParserRuleContext ctx) {
         super(ctx);
         String originalText = getOriginalText(ctx);
-        this.value = originalText.substring(1, originalText.length()-1);
+        this.value = Integer.valueOf(originalText);
     }
 
-    @Override
-    public String getValue() {
+    public Integer getValue() {
         return value;
     }
 
     @Override
     public String toString() {
-        return "StringLiteralNode [value=" + value + "]";
+        return "IntegerLiteralNode [value=" + value + "]";
     }
 
     @Override

@@ -2,7 +2,7 @@ package org.drools.demo20230608_protoextractor.ast;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 
-public class IdentifierNode extends AbstractNode implements TextValue{
+public class IdentifierNode extends AbstractNode implements TextValue {
 
     private final String value;
 
@@ -19,5 +19,10 @@ public class IdentifierNode extends AbstractNode implements TextValue{
     @Override
     public String toString() {
         return "IdentifierNode [value=" + value + "]";
+    }
+
+    @Override
+    public <T> T accept(Visitor<T> v) {
+        return v.visit(this);
     }
 }

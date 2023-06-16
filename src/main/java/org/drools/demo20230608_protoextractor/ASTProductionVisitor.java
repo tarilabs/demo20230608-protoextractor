@@ -6,51 +6,63 @@ import java.util.List;
 import org.drools.demo20230608_protoextractor.ProtoextractorParser.ChunkContext;
 import org.drools.demo20230608_protoextractor.ProtoextractorParser.ExtractorContext;
 import org.drools.demo20230608_protoextractor.ProtoextractorParser.IdentifierContext;
+import org.drools.demo20230608_protoextractor.ProtoextractorParser.IndexAccessorContext;
+import org.drools.demo20230608_protoextractor.ProtoextractorParser.IntegerLiteralContext;
 import org.drools.demo20230608_protoextractor.ProtoextractorParser.SquaredAccessorContext;
 import org.drools.demo20230608_protoextractor.ProtoextractorParser.StringLiteralContext;
 import org.drools.demo20230608_protoextractor.ast.ASTBuilderFactory;
 import org.drools.demo20230608_protoextractor.ast.ASTNode;
-import org.drools.demo20230608_protoextractor.ast.IdentifierNode;
-import org.drools.demo20230608_protoextractor.ast.StringLiteralNode;
+import org.drools.demo20230608_protoextractor.ast.IntegerLiteralNode;
 import org.drools.demo20230608_protoextractor.ast.TextValue;
 
 public class ASTProductionVisitor extends ProtoextractorBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitStringLiteral(StringLiteralContext ctx) {
-        StringLiteralNode node = ASTBuilderFactory.newStringLiteralNode(ctx);
-        return node;
+        return ASTBuilderFactory.newStringLiteralNode(ctx);
     }
 
     @Override
     public ASTNode visitIdentifier(IdentifierContext ctx) {
-        IdentifierNode node = ASTBuilderFactory.newIdentifierNode(ctx);
-        return node;
+        return ASTBuilderFactory.newIdentifierNode(ctx);
+    }
+
+    @Override
+    public ASTNode visitIntegerLiteral(IntegerLiteralContext ctx) {
+        return ASTBuilderFactory.newIntegerLiteralNode(ctx);
     }
 
     @Override
     public ASTNode visitSquaredAccessor(SquaredAccessorContext ctx) {
-        return ctx.stringLiteral().accept(this);
+        TextValue str = (TextValue) ctx.stringLiteral().accept(this);
+        return ASTBuilderFactory.newSquaredAccessorNode(ctx, str);
+    }
+
+    @Override
+    public ASTNode visitIndexAccessor(IndexAccessorContext ctx) {
+        IntegerLiteralNode idx = (IntegerLiteralNode) ctx.integerLiteral().accept(this);
+        return ASTBuilderFactory.newIndexAccessorNode(ctx, idx);
     }
 
     @Override
     public ASTNode visitChunk(ChunkContext ctx) {
-        TextValue value = null;
         if (ctx.identifier() != null) {
-            value = (TextValue) ctx.identifier().accept(this);
+            return ctx.identifier().accept(this);
         } else if (ctx.squaredAccessor() != null) {
-            value = (TextValue) ctx.squaredAccessor().accept(this);
+            return ctx.squaredAccessor().accept(this);
+        } else if (ctx.indexAccessor() != null) {
+            return ctx.indexAccessor().accept(this);
         }
-        return ASTBuilderFactory.newChunkNode(ctx, value);
+        throw new IllegalStateException("reached illegal state while parsing");
     }
 
     @Override
     public ASTNode visitExtractor(ExtractorContext ctx) {
-        List<TextValue> values = new ArrayList<>();
-        TextValue value0 = (TextValue) ctx.identifier().accept(this);
+        List<ASTNode> values = new ArrayList<>();
+        ASTNode value0 = ctx.identifier().accept(this);
         values.add(value0);
         for (ChunkContext chunk : ctx.chunk()) {
-            values.add((TextValue) chunk.accept(this));
+            values.add(chunk.accept(this));
         }
         return ASTBuilderFactory.newExtractorNode(ctx, values);
     }
