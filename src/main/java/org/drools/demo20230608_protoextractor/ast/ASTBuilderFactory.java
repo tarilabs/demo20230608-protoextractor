@@ -17,9 +17,6 @@ public class ASTBuilderFactory {
     public static IdentifierNode newIdentifierNode(ParserRuleContext ctx) {
         return new IdentifierNode( ctx );
     }
-    public static ChunkNode newChunkNode(ParserRuleContext ctx, TextValue value) {
-        return new ChunkNode( ctx, value );
-    }
     public static SquaredAccessorNode newSquaredAccessorNode(ParserRuleContext ctx, TextValue value) {
         return new SquaredAccessorNode( ctx, value );
     }
